@@ -1,61 +1,32 @@
 <div class="wrapper">
   <mat-accordion *ngIf="width < 768">
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel *ngFor="let bike of dataC">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <h2>Горный велосипед</h2>
+          <h2>{{bike.type}}</h2>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <ng-container [ngTemplateOutlet]="content" [ngTemplateOutletContext]="{ imgUrl: 'bike1', 
-      title: 'Велосипед STELS Navigator 510 HD 26 2022',
-      description1: 'Данный велосипед с колесами 26 дюймов хорошо подходит высоким подросткам. Прогиб рамы и небольшой размер рамы расчитан на рост от 135 до 165 см.',
-      description2: 'Суммарный вес велосипеда был снижен до 16,9 кг, так как рама была изготовлена с учетом использования велосипеда подростками.',
-      characteristic: mountainArray,
+      <ng-container [ngTemplateOutlet]="content" [ngTemplateOutletContext]="{ imgUrl: bike.img, 
+      title: bike.title,
+      description: bike.description,
+      characteristic: bike.characteristics,
       listType: 'list-number'
-    }">
-      </ng-container>
-    </mat-expansion-panel>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <h2>Женский велосипед</h2>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-container [ngTemplateOutlet]="content" [ngTemplateOutletContext]="{ imgUrl: 'bike2', 
-    title: 'Велосипед SCHWINN Traveler women 2022',
-    description1: 'Данный велосипед с колесами 26 дюймов хорошо подходит высоким подросткам. Прогиб рамы и небольшой размер рамы расчитан на рост от 135 до 165 см.',
-    description2: 'Суммарный вес велосипеда был снижен до 16,9 кг, так как рама была изготовлена с учетом использования велосипеда подростками.',
-    characteristic: girlArray,
-    listType: 'list-image'
-  }">
-      </ng-container>
+    }"></ng-container>
     </mat-expansion-panel>
   </mat-accordion>
 
   <mat-tab-group *ngIf="width >= 768">
-    <mat-tab label="Горный велосипед">
-      <ng-container [ngTemplateOutlet]="content" [ngTemplateOutletContext]="{ imgUrl: 'bike1', 
-    title: 'Велосипед STELS Navigator 510 HD 26 2022',
-      description1: 'Данный велосипед с колесами 26 дюймов хорошо подходит высоким подросткам. Прогиб рамы и небольшой размер рамы расчитан на рост от 135 до 165 см.',
-      description2: 'Суммарный вес велосипеда был снижен до 16,9 кг, так как рама была изготовлена с учетом использования велосипеда подростками.',
-      characteristic: mountainArray,
+    <mat-tab *ngFor="let bike of dataC" label="{{bike.type}}">
+      <ng-container [ngTemplateOutlet]="content" [ngTemplateOutletContext]="{ imgUrl: bike.img, 
+      title: bike.title,
+      description: bike.description,
+      characteristic: bike.characteristics,
       listType: 'list-number'
-    }">
-      </ng-container>
-    </mat-tab>
-    <mat-tab label="Женский велосипед">
-      <ng-container [ngTemplateOutlet]="content" [ngTemplateOutletContext]="{ imgUrl: 'bike2', 
-    title: 'Велосипед SCHWINN Traveler women 2022',
-    description1: 'Данный велосипед с колесами 26 дюймов хорошо подходит высоким подросткам. Прогиб рамы и небольшой размер рамы расчитан на рост от 135 до 165 см.',
-    description2: 'Суммарный вес велосипеда был снижен до 16,9 кг, так как рама была изготовлена с учетом использования велосипеда подростками.',
-    characteristic: girlArray,
-    listType: 'list-image'
-  }">
-      </ng-container>
+    }"></ng-container>
     </mat-tab>
   </mat-tab-group>
 
-  <ng-template #content let-imgUrl='imgUrl' let-title='title' let-description1='description1'
+  <ng-template #content let-imgUrl='imgUrl' let-title='title' let-description='description'
     let-description2='description2' let-characteristic='characteristic' let-listType='listType'>
     <div class="card">
       <div class="card__top-content card-top-content">
@@ -63,8 +34,7 @@
         <div class="card-top-content-article">
           <h1 class="card-top-content-article__title">{{title}}</h1>
           <div class="card-top-content-article__description">
-            <p>{{description1}}</p>
-            <p>{{description2}}</p>
+            <p [innerHtml]="description"></p>
           </div>
         </div>
       </div>
@@ -83,10 +53,11 @@
           Добавить характеристику
         </h3>
         <div class="card-add-characteristic-form">
-          <mat-form-field  class="card-add-characteristic-form__field" appearance="fill">
+          <mat-form-field class="card-add-characteristic-form__field" appearance="fill">
             <input [(ngModel)]="setItemList" matInput placeholder="Алюминиевый сплав" value="">
           </mat-form-field>
-          <button [disabled]="!setItemList.length" (click)="addItems(characteristic)" class="btn" mat-button>Добавить</button>
+          <button [disabled]="!setItemList.length" (click)="addItems(characteristic)" class="btn"
+            mat-button>Добавить</button>
         </div>
 
       </div>

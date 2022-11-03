@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { data } from './data';
 
 @Component({
   selector: 'app-root',
@@ -6,12 +7,10 @@ import { Component, HostListener, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  panelOpenState = false;
-  mountainArray = ['Двойной обод', 'Алюминиевый сплав', 'Колеса диаметром 26 дюймов', 'Покрышки 26х1,95*']
-  girlArray = ['Стальная рама', 'Жесткая вилка', 'Колеса диаметром 24 дюймов', '7 скоростей']
-
+  dataC: any;  
   setItemList = ''
   ngOnInit(): void {
+    this.dataC = data.bikes;
     this.width = document.body.clientWidth;
   }
   width!: number;
