@@ -1,0 +1,385 @@
+//color settings
+$dark: #0c0c0c;
+$gray: #494949;
+$def: #3922c5;
+$hover: #2c1a9a;
+$active: #1f1368;
+$placeholder: #d9d9d9;
+
+
+@mixin font($fontWeight, $fontSize, $lineHeight) {
+    font-weight: $fontWeight;
+    line-height: $lineHeight;
+    font-size: $fontSize;
+}
+
+
+
+
+//helper class
+.h1 {
+    @include font(700, 24px, 36px);
+}
+.h2 {    
+    @include font(500, 20px, 30px);
+}
+.h3 {
+    @include font(500, 16px, 24px);
+}
+.text {
+    @include font(400, 14px, 21px);
+}
+
+hr {
+    background: $placeholder;
+    height: 1px;
+    margin: 30px 0;
+    border: 0;
+}
+.card {
+    &__sub-title {
+        color: $dark;
+        margin-bottom: 15px;
+        @extend .h3;
+    }
+    &__list {
+        margin-bottom: 30px;
+    }
+
+    &__footer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        align-content: stretch;
+        margin-bottom: 40px;
+        button {
+            flex: 1;
+        }
+    }
+}
+.card-top-content {
+    &__bike {
+        margin-bottom: 20px;
+    }
+}
+.card-top-content-article {
+    &__title {
+        @extend .h1;
+        color: $dark;
+        margin-bottom: 20px;
+    }
+    &__description {
+        p {
+            color: $gray;
+            margin-bottom: 15px;
+            @extend .text;
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+.card-add-characteristic {
+    &__title {
+        @extend .h3;
+        color: $dark;
+        margin-bottom: 15px;
+    }
+}
+
+.card-add-characteristic-form {
+    margin-bottom: 30px;
+    .btn {
+        width: 100%;
+    }
+    &__field {
+        width: 100%;
+
+        margin-bottom: 15px;
+    }
+}
+.card-list {
+    &__item {
+        @extend .text;
+        color: $gray;
+        margin-bottom: 15px;
+        position: relative;
+        &:last-of-type {
+            margin-bottom: 15px;
+        }
+    }
+    &.list-number {
+        counter-reset: section;
+        & .card-list__item {
+            &:before {
+                counter-increment: section;
+                content: counter(section) ". ";
+            }
+        }
+    }
+    &.list-image {
+        & .card-list__item {
+            padding-left: 26px;
+            &::before {
+                content: "";
+                background-image: url("/assets/images/item-bike.svg");
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center;
+                width: 16px;
+                height: 16px;
+                position: absolute;
+                left: 0;
+                bottom: 50%;
+                transform: translateY(50%);
+            }
+        }
+    }
+    margin-bottom: 30px;
+}
+.btn {
+    background: $def;
+    border-radius: 16px;
+    padding: 15.5px 24px;
+    @extend .text;
+    color: #fff;
+    font-family: "Montserrat", sans-serif;
+    border: 0;
+    cursor: pointer;
+    &:hover {
+        background: $hover;
+    }
+    &:active {
+        background: $active;
+    }
+    &:disabled {
+        cursor: not-allowed;
+    }
+    &_secondary {
+        color: $dark;
+        background-color: #fff;
+        &:hover {
+            color: $hover;
+            background-color: #fff;
+        }
+        &:active {
+            color: $active;
+            background-color: #fff;
+        }
+    }
+}
+.wrapper {
+    padding: 40px 20px 50px;
+}
+.mat-expansion-panel {
+    margin-bottom: 20px;
+    border-radius: 20px !important;
+    box-shadow: none;
+    h2 {
+        color: $dark;
+        @extend .h2;
+    }
+    &.mat-expanded {
+        h2 {
+            color: $def;
+        }
+    }
+    .mat-expansion-panel-header {
+        height: 73px;
+    }
+}
+
+.card-footer {
+    background: #ffffff;
+    box-shadow: 0px 10px 40px rgba(12, 12, 12, 0.1);
+    border-radius: 20px;
+    padding: 30px 20px;
+    button {
+        flex: 1;
+        margin-right: 15px;
+        &:last-of-type {
+            margin-right: 0;
+        }
+    }
+}
+//fix material style
+::ng-deep {
+    div.mat-expansion-panel-body {
+        padding: 0 20px 0;
+    }
+    .mat-expansion-panel-header-description,
+    .mat-expansion-indicator::after {
+        color: $dark;
+    }
+
+    .mat-form-field-appearance-fill .mat-form-field-infix {
+        padding: 0;
+    }
+
+    .mat-form-field-infix {
+        border: 0;
+    }
+    .mat-form-field-appearance-fill div.mat-form-field-flex {
+        padding: 0;
+        background: transparent;
+    }
+    .mat-form-field-wrapper {
+        padding: 0;
+    }
+    .mat-form-field-underline {
+        display: none;
+    }
+    input.mat-input-element {
+        background: #ffffff;
+        border: 1px solid $placeholder;
+        border-radius: 16px;
+        padding: 0 16px;
+        height: 52px;
+        line-height: 52px;
+        box-sizing: border-box;
+        color: $dark;
+        caret-color: $dark;
+        &::-webkit-input-placeholder {
+            /* Chrome/Opera/Safari */
+            color: $placeholder;
+        }
+        &::-moz-placeholder {
+            /* Firefox 19+ */
+            color: $placeholder;
+        }
+        &:-ms-input-placeholder {
+            /* IE 10+ */
+            color: $placeholder;
+        }
+        &:-moz-placeholder {
+            /* Firefox 18- */
+            color: $placeholder;
+        }
+    }
+    .mat-focused {
+        input.mat-input-element {
+            border: 1px solid $def;
+        }
+    }
+    div.mat-tab-label {
+        background: $placeholder;
+        border-radius: 20px 20px 0px 0px;
+        color: $dark;
+        height: 73px;
+        opacity: 1;
+        @extend .h2;
+        &.mat-tab-label-active {
+            background: #ffffff;
+            color: $def;
+        }
+    }
+    .mat-tab-body-wrapper {
+        background-color: #fff;
+        padding: 40px 0 0;
+        border-radius: 0px 20px 20px 20px;
+    }
+    .mat-tab-group.mat-primary .mat-ink-bar,
+    .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+        display: none;
+    }
+    .mat-tab-nav-bar,
+    .mat-tab-header {
+        border: 0;
+    }
+    .mat-ripple-element {
+        display: none !important;
+    }
+    .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled=true]) {
+        background-color: transparent;
+    }
+}
+@media screen and (min-width: 768px) {
+    .wrapper {
+        padding: 81px 102px;
+    }
+    .card-top-content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        align-content: stretch;
+        &__bike {
+            margin-left: -128px;
+            width: 358px;
+        }
+    }
+    .card-top-content-article {
+        margin-left: 71px;
+        flex: 1;
+        p {
+            margin-bottom: 16px;
+        }
+    }
+    hr {
+        margin: 40px 0;
+    }
+    .card {
+        padding: 0 60px;
+        &__sub-title {
+            margin-bottom: 18px;
+        }
+    }
+    .card-add-characteristic {
+        &__title {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            width: auto;
+        }
+    }
+    .card-list {
+        &__item {
+            margin-bottom: 16px;
+        }
+    }
+    .card-add-characteristic-form {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        align-content: stretch;
+        &__field {
+            width: 351px;
+            margin-bottom: 0;
+        }
+        .btn {
+            margin-left: 24px;
+        }
+    }
+    .card-footer {
+        & button {
+            flex: inherit;
+        }
+    }
+    .card-list {
+        display: inline-flex;
+        flex-wrap: wrap;
+        &__item {
+            width: calc(50% - 26px);
+        }
+    }
+
+
+    .h1 {
+        @include font(700, 26px, 39px);
+    }
+    .h2 {    
+        @include font(500, 22px, 33px);
+    }
+    .h3 {
+        @include font(500, 18px, 27px);
+    }
+    .text {
+        @include font(400, 16px, 24px);
+    }
+}
